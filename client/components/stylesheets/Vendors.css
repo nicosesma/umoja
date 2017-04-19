@@ -6,6 +6,13 @@
 .VendorSpot {
   height: 30px;
   width: 30px;
-  background-color: green;
   border: 2px solid black;
+}
+
+.availableSpot {
+  background-color: green;
+}
+
+.reservedSpot {
+  background-color: red;
 }
