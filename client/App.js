@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import $ from 'jquery'
 
 import './style.css'
 
-// import AdminDashboard from './components/AdminDashboard'
-// import HomePage from './components/HomePage'
+import AdminPage from './components/AdminPage'
+import HomePage from './components/HomePage'
 
 export default class App extends Component {
   constructor() {
@@ -18,10 +18,12 @@ export default class App extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
+    const {user} = this.state
     return <Router>
       <Switch>
         <Route exact path='/' component={HomePage} user={user} />
-        <Route path='/admin' component={AdminDashboard} user={user} />
+        <Route path='/admin' component={AdminPage} user={user} />
         <Route path='/*' component={NotFoundPage} />
       </Switch>
     </Router>

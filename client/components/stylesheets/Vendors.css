@@ -1,0 +1,11 @@
+.VendorMap {
+  display: flex;
+  justify-content: center;
+}
+
+.VendorSpot {
+  height: 30px;
+  width: 30px;
+  background-color: green;
+  border: 2px solid black;
+}

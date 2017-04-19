@@ -8,11 +8,11 @@ const defaultConfig = env => {
     client: 'postgresql',
     connection: connectionString,
     migrations: {
-      directory: __dirname + 'db/migrations',
+      directory: __dirname + '/db/migrations',
       tableName: 'migrations'
     },
     seeds: {
-      directory: __dirname + `db/seeds/${env}`
+      directory: __dirname + `/db/seeds/${env}`
     }
   }
 }

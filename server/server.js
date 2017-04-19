@@ -21,6 +21,8 @@ const server = express()
 
 server.set('env', process.env.NODE_ENV)
 
+console.log('defaultConfig', defaultConfig)
+
 // const {COOKIE_LIFETIME, SESSION_KEY} = defaultConfig
 //
 // server.use(cookieSession({
@@ -32,10 +34,10 @@ server.set('env', process.env.NODE_ENV)
 server.use(express.static(`${buildPath}/public`))
 server.use(bodyParser.json())
 
-server.use('/', authRoutes)
-server.use('/api', apiRoutes)
+// server.use('/', authRoutes)
+// server.use('/api', apiRoutes)
 
-server.use(errorHandlers)
+// server.use(errorHandlers)
 
 server.get('/*', (request, response) => {
   response.sendFile(`public/index.html`, {root: path.resolve(__dirname, '..')})
