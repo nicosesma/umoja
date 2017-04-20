@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 
 import VendorSpot from './VendorSpot'
 
+import VendorMap from './VendorMap'
+
 import './stylesheets/Vendors.css'
 
 class HomePage extends Component {
@@ -48,6 +50,7 @@ class HomePage extends Component {
       <div className='VendorMap'>
         {vendorSpots(1, 12)}
       </div>
+      <VendorMap />
     </div>
   }
 }
