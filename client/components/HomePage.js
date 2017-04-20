@@ -11,12 +11,12 @@ class HomePage extends Component {
       vendorMap: null
     }
 
-    this.onVendorSpotClick = this.onVendorSpotClick.bind(this)
+    // this.onVendorSpotClick = this.onVendorSpotClick.bind(this)
   }
 
-  onVendorSpotClick(event) {
-    event.preventDefault()
-  }
+  // onVendorSpotClick(event) {
+  //   event.preventDefault()
+  // }
 
   render() {
     console.log('this.props', this.props.user)
@@ -32,21 +32,21 @@ class HomePage extends Component {
     return <div>
       <h1>Vendors Map!</h1>
       <div className='VendorMap'>
-        {vendorSpots(0, 11)}
+        {vendorSpots(45, 56)}
+      </div>
+      <br />
+      <div className='VendorMap'>
+        {vendorSpots(34, 45)}
+      </div>
+      <div className='VendorMap'>
+        {vendorSpots(23, 34)}
       </div>
       <br />
       <div className='VendorMap'>
         {vendorSpots(12, 23)}
       </div>
       <div className='VendorMap'>
-        {vendorSpots(24, 35)}
-      </div>
-      <br />
-      <div className='VendorMap'>
-        {vendorSpots(36, 47)}
-      </div>
-      <div className='VendorMap'>
-        {vendorSpots(48, 59)}
+        {vendorSpots(1, 12)}
       </div>
     </div>
   }

@@ -34,14 +34,15 @@ console.log('defaultConfig', defaultConfig)
 server.use(express.static(`${buildPath}/public`))
 server.use(bodyParser.json())
 
-// server.use('/', authRoutes)
-// server.use('/api', apiRoutes)
+server.use('/', authRoutes)
+server.use('/api', apiRoutes)
 
-// server.use(errorHandlers)
 
 server.get('/*', (request, response) => {
   response.sendFile(`public/index.html`, {root: path.resolve(__dirname, '..')})
 })
+
+server.use(errorHandlers)
 
 // server.use(enforce.HTTPS({trustProtoHeader: true}))
 

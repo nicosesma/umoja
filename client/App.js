@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
+import {createBrowserHistory} from 'history'
+
 import $ from 'jquery'
 
 import './style.css'
@@ -20,7 +22,7 @@ export default class App extends Component {
   render() {
     console.log('this.state', this.state)
     const {user} = this.state
-    return <Router>
+    return <Router history={createBrowserHistory()}>
       <Switch>
         <Route exact path='/' component={HomePage} user={user} />
         <Route path='/admin' component={AdminPage} user={user} />
