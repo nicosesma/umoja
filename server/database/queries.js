@@ -11,7 +11,7 @@ const getRecordById = (table, id) => {
 
 const getAllUsers = () => getRecords('users')
 
-const getAllVendorSpots = () => getRecords('vendor_spots')
+const getAllVendorSpots = () => getRecords('vendor_spots').orderBy('id', 'asc')
 
 const getVendorSpotById = id => getRecordById('vendor_spots', id)
 

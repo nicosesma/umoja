@@ -27,6 +27,7 @@ class VendorMap extends Component {
   }
 
   render() {
+    console.log('this.state', this.state)
     return <div>
       <h2>This is going to be the New Map</h2>
     </div>
