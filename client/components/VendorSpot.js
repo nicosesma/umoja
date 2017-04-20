@@ -15,29 +15,38 @@ class VendorSpot extends Component {
   }
 
   clickOnSpot(event) {
-    const {id} = this.props
     event.preventDefault()
-    this.setState({
-      reserved: !this.state.reserved
-    })
+    const {id} = this.props
+    const {reserved} = this.state
+
     const contact_name = 'Nico'
     const contact_email = 'themail@mail.net'
     const contact_number = '3105104150'
-    return $.ajax({
-      method: 'POST',
-      url: '/api/reserve',
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json',
-      data: JSON.stringify({
-        id,
-        contact_name,
-        contact_email,
-        contact_number,
-        reserved: true
+    console.log('reserved', reserved)
+    if (!reserved) {
+      console.log('reserved in method', reserved)
+      this.setState({
+        reserved: !this.state.reserved
       })
-    }).then(result => {
-      console.log('result', result)
-    })
+
+      return $.ajax({
+        method: 'POST',
+        url: '/api/reserve',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify({
+          id,
+          contact_name,
+          contact_email,
+          contact_number,
+          reserved: true
+        })
+      }).then(result => {
+        console.log('result', result)
+      })
+    }
+
+    return
   }
 
   render() {
