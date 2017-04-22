@@ -53,9 +53,9 @@ class VendorSpot extends Component {
     const className = this.state.reserved
       ? 'reservedSpot'
       : 'availableSpot'
-    console.log('className', className)
-    console.log('this.state', this.state)
-    console.log('this.props', this.props)
+    // console.log('className', className)
+    // console.log('this.state', this.state)
+    // console.log('this.props', this.props)
     return <div className={`VendorSpot ${className}`} onClick={e => this.clickOnSpot(e)}>
     </div>
   }

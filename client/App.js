@@ -15,13 +15,28 @@ export default class App extends Component {
     super()
     this.state = {
       location: window.location,
-      user: null
+      user: null,
+      vendorMap: null
     }
+  }
+
+  componentDidMount() {
+    return $.ajax({
+      method: 'POST',
+      url: '/api/map',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
+    }).then(map => {
+      console.log('map', map)
+      this.setState({
+        vendorMap: map
+      })
+    })
   }
 
   render() {
     console.log('this.state', this.state)
-    const {user} = this.state
+    const {vendorMap, user} = this.state
     return <Router history={createBrowserHistory()}>
       <Switch>
         <Route exact path='/' component={HomePage} user={user} />
