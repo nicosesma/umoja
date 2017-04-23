@@ -7,9 +7,9 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 
-const webpackErrorNotificationPlugin = (process.env.NODE_ENV === 'development')
-  ? new require('webpack-error-notification')
-  : new webpack.DefinePlugin({})
+// const webpackErrorNotificationPlugin = (process.env.NODE_ENV === 'development')
+//   ? new require('webpack-error-notification')
+//   : new webpack.DefinePlugin({})
 
 // const APP_ROOT = config.APP_ROOT
 
@@ -77,6 +77,6 @@ module.exports = {
       }
     }),
     new ExtractTextPlugin('browser.css'),
-    new webpackErrorNotificationPlugin
+    // new webpackErrorNotificationPlugin
   ]
 }
