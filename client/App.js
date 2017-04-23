@@ -20,19 +20,19 @@ export default class App extends Component {
     }
   }
 
-  componentDidMount() {
-    return $.ajax({
-      method: 'POST',
-      url: '/api/map',
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json'
-    }).then(map => {
-      console.log('map', map)
-      this.setState({
-        vendorMap: map
-      })
-    })
-  }
+  // componentDidMount() {
+  //   return $.ajax({
+  //     method: 'POST',
+  //     url: '/api/map',
+  //     contentType: 'application/json; charset=utf-8',
+  //     dataType: 'json'
+  //   }).then(map => {
+  //     console.log('map', map)
+  //     this.setState({
+  //       vendorMap: map
+  //     })
+  //   })
+  // }
 
   render() {
     console.log('this.state', this.state)
