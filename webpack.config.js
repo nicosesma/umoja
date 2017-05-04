@@ -1,7 +1,5 @@
 require('./config/environment')
-
 // const config = require('./config')
-// const path = require('path')
 
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -10,10 +8,6 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 // const webpackErrorNotificationPlugin = (process.env.NODE_ENV === 'development')
 //   ? new require('webpack-error-notification')
 //   : new webpack.DefinePlugin({})
-
-// const APP_ROOT = config.APP_ROOT
-
-// console.log('APP_ROOT', APP_ROOT)
 
 const root = __dirname
 

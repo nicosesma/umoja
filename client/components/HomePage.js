@@ -29,7 +29,6 @@ class HomePage extends Component {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
     }).then(result => {
-      console.log('result HomePage', result)
       this.setState({
         vendorMap: result
       })
@@ -39,9 +38,9 @@ class HomePage extends Component {
   render() {
     // console.log('this.props', this.props.user)
     const {vendorMap} = this.state
-    console.log('this.props HomePage', this.props)
+    // console.log('this.props HomePage', this.props)
     const vendorSpots = (start, end) => {
-      console.log('in vedorSpots')
+      // console.log('in vedorSpots')
       let arr = []
       for (let i = start; i < end; i++) {
         // console.log('i in forloop', i)

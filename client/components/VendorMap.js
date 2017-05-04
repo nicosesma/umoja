@@ -30,7 +30,7 @@ class VendorMap extends Component {
 
   render() {
     // console.log('this.state', this.state)
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
     const {vendorMap} = this.props
     const theMap = this.props.vendorMap
       ? renderVendorMap(this.props.vendorMap, 1, 12)
@@ -65,7 +65,7 @@ const renderVendorMap = (map, start, end) => {
   let firstMapRow = []
   let secondRow = []
   map.forEach(spot => {
-    console.log('spot in renderMap', spot)
+    // console.log('spot in renderMap', spot)
     const {id, reserved} = spot
     if (id >= start && id < end) {
       firstMapRow.push(<VendorSpot key={id} id={id} reserved={reserved} />)

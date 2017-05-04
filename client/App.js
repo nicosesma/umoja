@@ -15,8 +15,7 @@ export default class App extends Component {
     super()
     this.state = {
       location: window.location,
-      user: null,
-      vendorMap: null
+      vendor_map: null
     }
   }
 
@@ -34,13 +33,27 @@ export default class App extends Component {
   //   })
   // }
 
+  getInitialState() {
+    return $.ajax({
+      method: 'POST',
+      url: '/api/map',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
+    }).then(vendor_map => {
+      console.log('vendor_map', vendor_map)
+      this.setState({
+        vendor_map
+      })
+    })
+  }
+
   render() {
-    console.log('this.state', this.state)
-    const {vendorMap, user} = this.state
+    console.log('this.state App', this.state)
+    const {vendorMap} = this.state
     return <Router history={createBrowserHistory()}>
       <Switch>
-        <Route exact path='/' component={HomePage} user={user} />
-        <Route path='/admin' component={AdminPage} user={user} />
+        <Route exact path='/' component={HomePage} />
+        <Route path='/admin' component={AdminPage} />
         <Route path='/*' component={NotFoundPage} />
       </Switch>
     </Router>

@@ -58,7 +58,7 @@ class VendorSpot extends Component {
   }
 
   render() {
-    console.log('this.props dSPOT', this.props)
+    // console.log('this.props dSPOT', this.props)
     const className = this.props.reserved
       ? 'reservedSpot'
       : 'availableSpot'
