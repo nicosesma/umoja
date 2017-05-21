@@ -8,6 +8,11 @@ import VendorMap from './VendorMap'
 
 import './stylesheets/Vendors.css'
 
+const HeaderStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+}
+
 class HomePage extends Component {
   constructor() {
     super()
@@ -22,7 +27,7 @@ class HomePage extends Component {
   //   event.preventDefault()
   // }
 
-  componentDidMount() {
+  getInitialState() {
     return $.ajax({
       method: 'POST',
       url: '/api/map',
@@ -35,29 +40,53 @@ class HomePage extends Component {
     })
   }
 
+  // componentDidMount() {
+  //   return $.ajax({
+  //     method: 'POST',
+  //     url: '/api/map',
+  //     contentType: 'application/json; charset=utf-8',
+  //     dataType: 'json'
+  //   }).then(result => {
+  //     this.setState({
+  //       vendorMap: result
+  //     })
+  //   })
+  // }
+
   render() {
     // console.log('this.props', this.props.user)
     const {vendorMap} = this.state
+    console.log('vendorMap HomePageRender', vendorMap)
     // console.log('this.props HomePage', this.props)
-    const vendorSpots = (start, end) => {
-      // console.log('in vedorSpots')
-      let arr = []
-      for (let i = start; i < end; i++) {
-        // console.log('i in forloop', i)
-        arr.push(<VendorSpot key={i} id={i} />)
-      }
-      return arr
-    }
+    // const vendorSpots = (start, end) => {
+    //   // console.log('in vedorSpots')
+    //   let arr = []
+    //   for (let i = start; i < end; i++) {
+    //     // console.log('i in forloop', i)
+    //     arr.push(<VendorSpot key={i} id={i} />)
+    //   }
+    //   return arr
+    // }
 
-    const renderMap = this.state.vendorMap
-      ? <VendorMap vendorMap={vendorMap} />
-      :null
+    // const renderMap = this.state.vendorMap
+    //   ? <VendorMap vendorMap={vendorMap} />
+    //   :null
 
     return <div>
-      <h1>Vendors Map!</h1>
-      {renderMap}
+      <h1 style={HeaderStyle}>Umoja Festival Vendor Registration</h1>
+      {theFirstMap()}
     </div>
   }
+}
+
+const vendorSpots = (start, end) => {
+  // console.log('in vedorSpots')
+  let arr = []
+  for (let i = start; i < end; i++) {
+    // console.log('i in forloop', i)
+    arr.push(<VendorSpot key={i} id={i} />)
+  }
+  return arr
 }
 
 const theFirstMap = props => {
