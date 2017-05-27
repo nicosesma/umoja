@@ -19,40 +19,40 @@ export default class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   return $.ajax({
-  //     method: 'POST',
-  //     url: '/api/map',
-  //     contentType: 'application/json; charset=utf-8',
-  //     dataType: 'json'
-  //   }).then(map => {
-  //     console.log('map', map)
-  //     this.setState({
-  //       vendorMap: map
-  //     })
-  //   })
-  // }
-
-  getInitialState() {
+  componentDidMount() {
     return $.ajax({
       method: 'POST',
       url: '/api/map',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
-    }).then(vendor_map => {
-      console.log('vendor_map', vendor_map)
+    }).then(map => {
+      console.log('map', map)
       this.setState({
-        vendor_map
+        vendorMap: map
       })
     })
   }
+
+  // getInitialState() {
+  //   return $.ajax({
+  //     method: 'POST',
+  //     url: '/api/map',
+  //     contentType: 'application/json; charset=utf-8',
+  //     dataType: 'json'
+  //   }).then(vendor_map => {
+  //     console.log('vendor_map', vendor_map)
+  //     this.setState({
+  //       vendor_map
+  //     })
+  //   })
+  // }
 
   render() {
     console.log('this.state App', this.state)
     const {vendorMap} = this.state
     return <Router history={createBrowserHistory()}>
       <Switch>
-        <Route exact path='/' component={HomePage} />
+        <Route exact path='/' component={e => <HomePage vendorMap={vendorMap} />} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/*' component={NotFoundPage} />
       </Switch>

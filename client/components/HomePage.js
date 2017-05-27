@@ -27,18 +27,18 @@ class HomePage extends Component {
   //   event.preventDefault()
   // }
 
-  getInitialState() {
-    return $.ajax({
-      method: 'POST',
-      url: '/api/map',
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json'
-    }).then(result => {
-      this.setState({
-        vendorMap: result
-      })
-    })
-  }
+  // getInitialState() {
+  //   return $.ajax({
+  //     method: 'POST',
+  //     url: '/api/map',
+  //     contentType: 'application/json; charset=utf-8',
+  //     dataType: 'json'
+  //   }).then(result => {
+  //     this.setState({
+  //       vendorMap: result
+  //     })
+  //   })
+  // }
 
   // componentDidMount() {
   //   return $.ajax({
@@ -54,9 +54,10 @@ class HomePage extends Component {
   // }
 
   render() {
+    console.log('this.props', this.props)
     // console.log('this.props', this.props.user)
-    const {vendorMap} = this.state
-    console.log('vendorMap HomePageRender', vendorMap)
+    const {vendorMap} = this.props
+    // console.log('vendorMap HomePageRender', vendorMap)
     // console.log('this.props HomePage', this.props)
     // const vendorSpots = (start, end) => {
     //   // console.log('in vedorSpots')
@@ -74,8 +75,17 @@ class HomePage extends Component {
 
     return <div>
       <h1 style={HeaderStyle}>Umoja Festival Vendor Registration</h1>
-      {theFirstMap()}
+      {
+        renderRealMap(vendorMap)
+      }
     </div>
+  }
+}
+
+const renderRealMap = (vendorMap) => {
+  for(let i = 0; i < vendorMap; i++) {
+    console.log('vendorMap[i].reserved', vendorMap[i].reserved, i)
+    return <VendorSpot key={i} id={i} reserved={vendorMap[i].reserved} />
   }
 }
 
