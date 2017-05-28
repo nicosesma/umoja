@@ -9,18 +9,11 @@ import './stylesheets/Vendors.css'
 class VendorSpot extends Component {
   constructor() {
     super()
-    // this.state = {
-    //   reserved: false
-    // }
-
+    this.state = {
+      reserved: this.props.reserved
+    }
     this.clickOnSpot = this.clickOnSpot.bind(this)
   }
-
-  // getInitialState() {
-  //   this.setState({
-  //     reserved: this.props.reserved
-  //   })
-  // }
 
   clickOnSpot(event) {
     event.preventDefault()
@@ -44,9 +37,10 @@ class VendorSpot extends Component {
         dataType: 'json',
         data: JSON.stringify({
           id,
-          contact_name,
-          contact_email,
-          contact_number,
+          // contact_name,
+          // contact_email,
+          // contact_number,
+          user_id,
           reserved: true
         })
       }).then(result => {
@@ -62,9 +56,7 @@ class VendorSpot extends Component {
     const className = this.props.reserved
       ? 'reservedSpot'
       : 'availableSpot'
-    // console.log('className', className)
-    // console.log('this.state', this.state)
-    // console.log('this.props', this.props)
+
     return <div className={`VendorSpot ${className}`} onClick={e => this.clickOnSpot(e)}>
     </div>
   }

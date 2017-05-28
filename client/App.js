@@ -9,13 +9,14 @@ import './style.css'
 
 import AdminPage from './components/AdminPage'
 import HomePage from './components/HomePage'
+import VendorMap from './components/VendorMap'
 
 export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      location: window.location,
-      vendor_map: null
+      vendor_map: null,
+      user: null
     }
   }
 
@@ -26,33 +27,19 @@ export default class App extends Component {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
     }).then(map => {
-      console.log('map', map)
       this.setState({
-        vendorMap: map
+        vendor_map: map
       })
     })
   }
 
-  // getInitialState() {
-  //   return $.ajax({
-  //     method: 'POST',
-  //     url: '/api/map',
-  //     contentType: 'application/json; charset=utf-8',
-  //     dataType: 'json'
-  //   }).then(vendor_map => {
-  //     console.log('vendor_map', vendor_map)
-  //     this.setState({
-  //       vendor_map
-  //     })
-  //   })
-  // }
-
   render() {
     console.log('this.state App', this.state)
-    const {vendorMap} = this.state
+    const {vendor_map} = this.state
     return <Router history={createBrowserHistory()}>
       <Switch>
-        <Route exact path='/' component={e => <HomePage vendorMap={vendorMap} />} />
+        <Route exact path='/' component={e => <HomePage user={this.state.user} />} />
+        <Route path='/map' component={e => <VendorMap vendor_map={vendor_map} />} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/*' component={NotFoundPage} />
       </Switch>
