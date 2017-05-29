@@ -21,7 +21,7 @@ class HomePage extends Component {
     return <div>
       <h1 style={HeaderStyle}>Umoja Festival Vendor Registration</h1>
       <div className={'container'}>
-        <AuthForm />
+        <AuthForm registerUser={this.props.registerUser} />
       </div>
     </div>
   }

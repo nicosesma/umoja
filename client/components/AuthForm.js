@@ -26,7 +26,7 @@ class AuthForm extends Component {
   onFormSubmit(event) {
     event.preventDefault()
     const {user_login, email, name, password, confirm_password, organization, invite_code} = this.state
-    // window.location = '/map'
+
     if (user_login) {
       const loginAttributes = {
         email,
@@ -35,7 +35,7 @@ class AuthForm extends Component {
 
       return $.ajax({
         method: 'POST',
-        url: '/',
+        url: '/login',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: JSON.stringify(loginAttributes)
@@ -59,6 +59,7 @@ class AuthForm extends Component {
           data: JSON.stringify({new_user_attributes, invite_code})
         }).then(result => {
           console.log('result Signup API', result)
+          return this.props.registerUser(result)
         })
       }
     }

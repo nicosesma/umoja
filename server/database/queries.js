@@ -24,12 +24,10 @@ const verifyUserLogin = attributes => {
   console.log('attributes verifyUser DB', attributes)
   return getUserByEmail(attributes.email)
     .then(user => {
-      console.log('user verifyUserLogin', user)
       if (user) {
         return bcrypt.compare(attributes.password, user.password)
           .then(result => {
-            console.log('result', result)
-            return result
+            return result ? user : null
           })
       }
 

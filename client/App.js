@@ -15,21 +15,29 @@ export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      vendor_map: null,
       user: null
     }
+
+    this.registerUser = this.registerUser.bind(this)
   }
 
   componentDidMount() {
     return $.ajax({
       method: 'POST',
-      url: '/api/map',
+      url: '/',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
-    }).then(map => {
+    }).then(user_session => {
+      // console.log('user_session', user_session)
       this.setState({
-        vendor_map: map
+        user: user_session
       })
+    })
+  }
+
+  registerUser(user) {
+    this.setState({
+      user
     })
   }
 
@@ -38,8 +46,8 @@ export default class App extends Component {
     const {vendor_map} = this.state
     return <Router history={createBrowserHistory()}>
       <Switch>
-        <Route exact path='/' component={e => <HomePage user={this.state.user} />} />
-        <Route path='/map' component={e => <VendorMap vendor_map={vendor_map} user={this.state.user} />} />
+        <Route exact path='/' component={e => <HomePage user={this.state.user} registerUser={this.registerUser} />} />
+        <Route path='/map' component={e => <VendorMap user={this.state.user} />} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/*' component={NotFoundPage} />
       </Switch>

@@ -9,3 +9,5 @@ A react application that enables users to visualize the map of an event in order
   -[] Render VendorMap correctly based on db_data
   -[] Create component progressive hierarchy
   -[] Style the Website *reuse_css_&&_bootsrap*
+
+Need to add navbar with signout button

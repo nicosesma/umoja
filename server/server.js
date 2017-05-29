@@ -24,12 +24,12 @@ server.set('env', process.env.NODE_ENV)
 console.log('defaultConfig', defaultConfig)
 
 // const {COOKIE_LIFETIME, SESSION_KEY} = defaultConfig
-//
-// server.use(cookieSession({
-//   name: 'session',
-//   keys: [defaultConfig.SESSION_KEY],
-//   maxAge: defaultConfig.COOKIE_LIFETIME
-// }))
+
+server.use(cookieSession({
+  name: 'session',
+  keys: [defaultConfig.SESSION_KEY],
+  maxAge: defaultConfig.COOKIE_LIFETIME
+}))
 
 server.use(express.static(`${buildPath}/public`))
 server.use(bodyParser.json())

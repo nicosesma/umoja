@@ -7,13 +7,35 @@ import config from '../../config' // Relative to build
 const router = new express.Router()
 
 router.post('/', (request, response) => {
+  console.log('request.session', request.session)
+  const {user} = request.session
+
+
+  if (!user) {
+    response.json(null)
+  }
+
+  if (user) {
+    const attributes = Object.assign({}, {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      admin: user.admin,
+      two_spots: user.two_spots,
+      organization: user.organization
+    })
+    response.json(attributes)
+  }
+})
+
+router.post('/login', (request, response) => {
   console.log('In the login route API', request.body)
   return queries.verifyUserLogin(request.body)
     .then(result => {
+      request.session.user = result
       console.log('result LoginAPIRoute query', result)
       response.json(result)
     })
-  // response.json('About to login')
 })
 
 router.post('/create_user', (request, response) => {
@@ -32,6 +54,10 @@ router.post('/create_user', (request, response) => {
   }
   if (invite_code === admin_invite) {
     Object.assign(new_user_attributes, {admin: true})
+    return createNewUser(new_user_attributes)
+      .then(user => response.json(user))
+  }
+  if (invite_code === 'test') {
     return createNewUser(new_user_attributes)
       .then(user => response.json(user))
   }
