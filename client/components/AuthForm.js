@@ -51,7 +51,7 @@ class AuthForm extends Component {
         organization
       }
 
-      if (password === confirm_password) {
+      if (password === confirm_password && password !== '') {
         return $.ajax({
           method: 'POST',
           url: '/create_user',

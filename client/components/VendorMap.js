@@ -42,7 +42,6 @@ const renderMapLine = (vendor_map, start, end) => {
   const mapArray = []
   if (vendor_map) {
     for (let i = start; i < end; i++) {
-      console.log('vendor_map[i]', vendor_map[i].reserved)
       mapArray.push(<VendorSpot key={i} reserved={vendor_map[i].reserved} />)
     }
   }

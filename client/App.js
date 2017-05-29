@@ -39,7 +39,7 @@ export default class App extends Component {
     return <Router history={createBrowserHistory()}>
       <Switch>
         <Route exact path='/' component={e => <HomePage user={this.state.user} />} />
-        <Route path='/map' component={e => <VendorMap vendor_map={vendor_map} />} />
+        <Route path='/map' component={e => <VendorMap vendor_map={vendor_map} user={this.state.user} />} />
         <Route path='/admin' component={AdminPage} />
         <Route path='/*' component={NotFoundPage} />
       </Switch>
