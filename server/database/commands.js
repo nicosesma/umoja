@@ -1,6 +1,8 @@
 import knex from './knex'
 import queries from './queries'
 
+import bcrypt from 'bcrypt'
+
 const firstRecord = records => records[0]
 
 const createRecord = (table, attributes) => {
@@ -27,7 +29,16 @@ const deleteRecord = (table, id) => {
     .del()
 }
 
-const createUser = attributes => createRecord('users', attributes)
+const createUser = attributes => {
+  console.log('in createUser', attributes)
+  const saltRounds = 10
+  return bcrypt.hash(attributes.password, saltRounds)
+    .then(hash => {
+      console.log('hash result', hash)
+      Object.assign(attributes, {password: hash})
+      return createRecord('users', attributes)
+    })
+}
 
 const updateUser = (id, attributes) => updateRecord('users', id, attributes)
 

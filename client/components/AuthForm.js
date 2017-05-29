@@ -25,8 +25,8 @@ class AuthForm extends Component {
 
   onFormSubmit(event) {
     event.preventDefault()
-    const {user_login, email, name, password, confirm_password, organization} = this.state
-
+    const {user_login, email, name, password, confirm_password, organization, invite_code} = this.state
+    // window.location = '/map'
     if (user_login) {
       const loginAttributes = {
         email,
@@ -41,10 +41,9 @@ class AuthForm extends Component {
         data: JSON.stringify(loginAttributes)
       }).then(result => {
         console.log('result Login API', result)
-        window.location = '/map'
       })
     } else if (!user_login) {
-      const signupAttributes = {
+      const new_user_attributes = {
         email,
         name,
         password,
@@ -57,10 +56,9 @@ class AuthForm extends Component {
           url: '/create_user',
           contentType: 'application/json; charset=utf-8',
           dataType: 'json',
-          data: JSON.stringify(signupAttributes)
+          data: JSON.stringify({new_user_attributes, invite_code})
         }).then(result => {
           console.log('result Signup API', result)
-          window.location = '/map'
         })
       }
     }
@@ -100,6 +98,11 @@ class AuthForm extends Component {
         confirm_password: event.target.value
       })
     }
+    if (context === 'invite_code') {
+      this.setState({
+        invite_code: event.target.value
+      })
+    }
   }
 
   render() {
@@ -129,7 +132,10 @@ const RegistrationForm = props => {
     <FormGroup label={'Password'} password_type={true} context={'password'} value={attributes.password} updateInput={updateInput} />
     {
       !user_login
-        ? <FormGroup label={'Confirm Password'} password_type={true} context={'confirm_password'} value={attributes.confirm_password} updateInput={updateInput} />
+        ? [
+          <FormGroup key={2} label={'Confirm Password'} password_type={true} context={'confirm_password'} value={attributes.confirm_password} updateInput={updateInput} />,
+          <FormGroup key={3} label={'Invite Code'} context={'invite_code'} value={attributes.invite_code} updateInput={updateInput} />
+        ]
         : null
     }
     <button className='btn btn-lg btn-success' onClick={e => onSubmit(e)}>Submit</button>

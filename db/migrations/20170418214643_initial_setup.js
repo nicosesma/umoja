@@ -3,10 +3,11 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('users', table => {
       table.increments('id').primary()
       table.string('name').notNullable()
+      table.string('organization').notNullable()
       table.string('email').unique()
       table.string('password').notNullable()
       table.boolean('admin').defaultTo('false')
-      table.string('organization').notNullable()
+      table.boolean('two_spots').defaultTo('false')
       table.timestamp('created_at').defaultTo(knex.fn.now())
       table.timestamp('updated_at').defaultTo(knex.fn.now())
     }),

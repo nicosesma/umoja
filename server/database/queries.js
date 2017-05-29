@@ -1,5 +1,7 @@
 import knex from './knex'
 
+import bcrypt from 'bcrypt'
+
 const getRecords = table => knex.table(table).select('*')
 
 const getRecordById = (table, id) => {
@@ -11,6 +13,30 @@ const getRecordById = (table, id) => {
 
 const getAllUsers = () => getRecords('users')
 
+const getUserByEmail = email => {
+  return knex
+    .table('users')
+    .where({email})
+    .first('*')
+}
+
+const verifyUserLogin = attributes => {
+  console.log('attributes verifyUser DB', attributes)
+  return getUserByEmail(attributes.email)
+    .then(user => {
+      console.log('user verifyUserLogin', user)
+      if (user) {
+        return bcrypt.compare(attributes.password, user.password)
+          .then(result => {
+            console.log('result', result)
+            return result
+          })
+      }
+
+      return 'Not a user'
+    })
+}
+
 const getAllVendorSpots = () => getRecords('vendor_spots').orderBy('id', 'asc')
 
 const getVendorSpotById = id => getRecordById('vendor_spots', id)
@@ -18,5 +44,7 @@ const getVendorSpotById = id => getRecordById('vendor_spots', id)
 export default {
   getAllUsers,
   getAllVendorSpots,
-  getVendorSpotById
+  getVendorSpotById,
+  getUserByEmail,
+  verifyUserLogin
 }
