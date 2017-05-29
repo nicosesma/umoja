@@ -16,3 +16,8 @@
 .reservedSpot {
   background-color: red;
 }
+
+.VendorMapRow {
+  display: flex;
+  flex-direction: row;
+}
