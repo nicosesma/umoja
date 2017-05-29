@@ -18,9 +18,6 @@ class VendorMap extends Component {
       <div className='VendorMap'>
         Rendering something in Map component
       </div>
-      <br />
-      <div className='VendorMap'>
-      </div>
     </div>
   }
 }
