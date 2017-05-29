@@ -34,6 +34,10 @@ class VendorMap extends Component {
 
     const {vendor_map} = this.state
 
+    if (!this.props.user) {
+      return <h1>Please Login to view Map</h1>
+    }
+
     return <div className='VendorMap'>
       <div ref='map_reference' className='container'>
         <div className='VendorMapRow'>

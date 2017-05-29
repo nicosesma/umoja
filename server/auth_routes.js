@@ -65,6 +65,11 @@ router.post('/create_user', (request, response) => {
   response.json('Invalid Invite Code')
 })
 
+router.post('/signout', (request, response) => {
+  delete request.session.user
+  response.json('Logged Out Successfully')
+})
+
 const createNewUser = attributes => {
   return queries.getUserByEmail(attributes.email)
     .then(result => {

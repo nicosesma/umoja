@@ -21,7 +21,11 @@ class HomePage extends Component {
     return <div>
       <h1 style={HeaderStyle}>Umoja Festival Vendor Registration</h1>
       <div className={'container'}>
-        <AuthForm registerUser={this.props.registerUser} />
+      {
+        !this.props.user
+          ? <AuthForm registerUser={this.props.registerUser} />
+          : <button className='btn btn-success btn-lg' onClick={e => window.location = '/map'}>Go to Map</button>
+      }
       </div>
     </div>
   }
