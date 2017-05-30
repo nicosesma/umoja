@@ -35,14 +35,14 @@ const verifyUserLogin = attributes => {
     })
 }
 
-const getAllVendorSpots = () => getRecords('vendor_spots').orderBy('id', 'asc')
+const getAllBooths = () => getRecords('vendor_spots').orderBy('id', 'asc')
 
-const getVendorSpotById = id => getRecordById('vendor_spots', id)
+const getBoothById = id => getRecordById('vendor_spots', id)
 
 export default {
   getAllUsers,
-  getAllVendorSpots,
-  getVendorSpotById,
+  getAllBooths,
+  getBoothById,
   getUserByEmail,
   verifyUserLogin
 }

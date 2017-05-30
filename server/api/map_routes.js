@@ -6,7 +6,7 @@ const router = new express.Router()
 
 router.post('/', (request, response) => {
   console.log('in request /map')
-  return queries.getAllVendorSpots().then(vendorMap => {
+  return queries.getAllBooths().then(vendorMap => {
     console.log('vendorMap', request.session)
     response.json(vendorMap)
   })

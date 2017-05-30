@@ -44,7 +44,7 @@ const updateUser = (id, attributes) => updateRecord('users', id, attributes)
 
 const deleteUser = id => deleteRecord('users', id)
 
-const reserveVendorSpot = (id, attributes) => {
+const manageBoothReservation = (id, attributes) => {
   Object.assign(
     attributes,
     {updated_at: knex.fn.now()}
@@ -53,18 +53,9 @@ const reserveVendorSpot = (id, attributes) => {
   return updateRecord('vendor_spots', id, attributes)
 }
 
-const cancelSpotReservation = (id, attributes) => {
-  Object.assign(
-    attributes,
-    {updated_at: knex.fn.now()
-  })
-
-  return updateRecord('vendor_spots', id, attributes)
-}
-
 export default {
   createUser,
   updateUser,
   deleteUser,
-  reserveVendorSpot
+  manageBoothReservation
 }
