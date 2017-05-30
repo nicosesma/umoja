@@ -53,6 +53,15 @@ const reserveVendorSpot = (id, attributes) => {
   return updateRecord('vendor_spots', id, attributes)
 }
 
+const cancelSpotReservation = (id, attributes) => {
+  Object.assign(
+    attributes,
+    {updated_at: knex.fn.now()
+  })
+
+  return updateRecord('vendor_spots', id, attributes)
+}
+
 export default {
   createUser,
   updateUser,

@@ -23,4 +23,9 @@ router.post('/', (request, response) => {
   response.json('About to reserve but can\'t')
 })
 
+router.post('/cancel', (request, response) => {
+  console.log('In the reservation_cancel route API', request.body, request.session.user)
+  response.json('About to cancel')
+})
+
 export default router

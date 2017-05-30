@@ -21,6 +21,7 @@ class VendorMap extends Component {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
     }).then(map => {
+      console.log('map VendorMap DidMount', map)
       if (this.refs.map_reference) {
         this.setState({
           vendor_map: map
@@ -41,32 +42,32 @@ class VendorMap extends Component {
     return <div className='VendorMap'>
       <div ref='map_reference' className='container'>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 0, 11)}
+          {renderMapLine(vendor_map, 0, 11, this.props.user.id)}
         </div>
         <br />
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 11, 22)}
+          {renderMapLine(vendor_map, 11, 22, this.props.user.id)}
         </div>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 22, 33)}
+          {renderMapLine(vendor_map, 22, 33, this.props.user.id)}
         </div>
         <br />
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 33, 44)}
+          {renderMapLine(vendor_map, 33, 44, this.props.user.id)}
         </div>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 44, 55)}
+          {renderMapLine(vendor_map, 44, 55, this.props.user.id)}
         </div>
       </div>
     </div>
   }
 }
 
-const renderMapLine = (vendor_map, start, end) => {
+const renderMapLine = (vendor_map, start, end, current_user_id) => {
   const mapArray = []
   if (vendor_map) {
     for (let i = start; i < end; i++) {
-      mapArray.push(<VendorSpot key={i} id={i+1} reserved={vendor_map[i].reserved} />)
+      mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_id={vendor_map[i].user_id} current_user_id={current_user_id} />)
     }
   }
   return mapArray
