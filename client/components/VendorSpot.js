@@ -13,6 +13,7 @@ class VendorSpot extends Component {
       reserved: this.props.reserved,
       reservation_user_id: this.props.user_id
     }
+
     this.clickOnSpot = this.clickOnSpot.bind(this)
   }
 
