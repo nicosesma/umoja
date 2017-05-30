@@ -32,7 +32,7 @@ router.post('/cancel', (request, response) => {
       console.log('result cancel Query', result, request.session.user.id)
       const {user} = request.session
       if (result.user_id === user.id && !request.body.reserved && result.reserved) {
-        const cancellation_attributes = Object.assign({}, request.body, {user_id: user.id})
+        const cancellation_attributes = Object.assign({}, request.body, {user_id: null})
         return commands.manageBoothReservation(JSON.parse(request.body.id), cancellation_attributes)
           .then(canceled_reservation => {
             console.log('canceled_reservation', canceled_reservation)
