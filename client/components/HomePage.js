@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import $ from 'jquery'
 
 import AuthForm from './AuthForm'
+import Navbar from './Navbar'
 
 import './stylesheets/Vendors.css'
 
@@ -19,6 +20,7 @@ class HomePage extends Component {
     console.log('this.props HomePage', this.props)
 
     return <div>
+      <Navbar signOut={this.props.signOut} user={this.props.user} />
       <h1 style={HeaderStyle}>Umoja Festival Vendor Registration</h1>
       <div className={'container'}>
       {

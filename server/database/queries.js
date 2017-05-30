@@ -31,7 +31,7 @@ const verifyUserLogin = attributes => {
           })
       }
 
-      return 'Not a user'
+      return null
     })
 }
 

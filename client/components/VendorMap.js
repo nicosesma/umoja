@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import $ from 'jquery'
 
+import Navbar from './Navbar'
 import VendorSpot from './VendorSpot'
 
 import './stylesheets/Vendors.css'
@@ -36,11 +37,16 @@ class VendorMap extends Component {
     const {vendor_map} = this.state
 
     if (!this.props.user) {
-      return <h1>Please Login to view Map</h1>
+      return <div>
+        <Navbar signOut={this.props.signOutUser} user={this.props.user} />
+        <h1>Please Login to view Map</h1>
+      </div>
     }
 
-    return <div className='VendorMap'>
-      <div ref='map_reference' className='container'>
+    return <div>
+      <Navbar signOut={this.props.signOut} user={this.props.user} />
+      <br />
+      <div ref='map_reference' className='container col-sm-6 col-sm-offset-3'>
         <div className='VendorMapRow'>
           {renderMapLine(vendor_map, 0, 11, this.props.user.id)}
         </div>

@@ -1,3 +1,6 @@
 .NotFoundPage {
-  color: orange;
+  color: black;
+  text-decoration: underline;
+  display: flex;
+  justify-content: center;
 }

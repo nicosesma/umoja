@@ -15,7 +15,8 @@ class AuthForm extends Component {
       name: '',
       password: '',
       confirm_password: '',
-      organization: ''
+      organization: '',
+      error: null
     }
 
     this.onFormSubmit = this.onFormSubmit.bind(this)
@@ -41,6 +42,13 @@ class AuthForm extends Component {
         data: JSON.stringify(loginAttributes)
       }).then(result => {
         console.log('result Login API', result)
+        if (result) {
+          this.props.registerUser(result)
+          return window.location = '/map'
+        }
+        this.setState({
+          error: true
+        })
       })
     } else if (!user_login) {
       const new_user_attributes = {
@@ -59,7 +67,8 @@ class AuthForm extends Component {
           data: JSON.stringify({new_user_attributes, invite_code})
         }).then(result => {
           console.log('result Signup API', result)
-          return this.props.registerUser(result)
+          this.props.registerUser(result)
+          return window.location = '/map'
         })
       }
     }
@@ -107,12 +116,15 @@ class AuthForm extends Component {
   }
 
   render() {
-    // console.log('this.state AuthForm', this.state)
-
     return <div className='container'>
       <div className="col-sm-6 col-sm-offset-3">
         <SwitchFormButtons user_login={this.state.user_login} onClick={this.switchFormOptions} />
         <RegistrationForm user_login={this.state.user_login} updateInput={this.updateInput} attributes={this.state} onSubmit={this.onFormSubmit} />
+        {
+          this.state.error
+            ? <h1>Error with Form Submission</h1>
+            : null
+        }
       </div>
     </div>
   }
