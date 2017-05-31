@@ -73,7 +73,11 @@ const renderMapLine = (vendor_map, start, end, current_user_id) => {
   const mapArray = []
   if (vendor_map) {
     for (let i = start; i < end; i++) {
-      mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_id={vendor_map[i].user_id} current_user_id={current_user_id} />)
+      if (vendor_map[i].user_id === current_user_id) {
+        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_reservation={true} />)
+      } else if (vendor_map[i].user_id !== current_user_id) {
+        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_id={vendor_map[i].user_id} current_user_id={current_user_id} />)
+      }
     }
   }
   return mapArray

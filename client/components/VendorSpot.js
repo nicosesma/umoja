@@ -11,7 +11,8 @@ class VendorSpot extends Component {
     super(props)
     this.state = {
       reserved: this.props.reserved,
-      reservation_user_id: this.props.user_id
+      reservation_user_id: this.props.user_id,
+      user_reservation: this.props.user_reservation
     }
 
     this.clickOnSpot = this.clickOnSpot.bind(this)
@@ -38,7 +39,8 @@ class VendorSpot extends Component {
         }).then(cancel_result => {
           console.log('cancel_result', cancel_result)
           this.setState({
-            reserved: !this.state.reserved
+            reserved: !this.state.reserved,
+            user_reservation: !this.state.user_reservation
           })
         })
       }
@@ -48,6 +50,9 @@ class VendorSpot extends Component {
       // this.setState({
       //   reserved: !this.state.reserved
       // })
+      this.setState({
+        user_reservation: !this.state.user_reservation
+      })
 
       return $.ajax({
         method: 'POST',
@@ -70,6 +75,11 @@ class VendorSpot extends Component {
   }
 
   render() {
+    if (this.state.user_reservation) {
+      return <div className={`VendorSpot userSpot`} onClick={e => this.clickOnSpot(e)}>
+    </div>
+    }
+
     const className = this.state.reserved
       ? 'reservedSpot'
       : 'availableSpot'

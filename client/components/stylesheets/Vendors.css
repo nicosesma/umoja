@@ -10,11 +10,15 @@
 }
 
 .availableSpot {
-  background-color: green;
+  background-color: lightgreen;
 }
 
 .reservedSpot {
-  background-color: red;
+  background-color: lightgrey;
+}
+
+.userSpot {
+  background-color: grey;
 }
 
 .VendorMapRow {

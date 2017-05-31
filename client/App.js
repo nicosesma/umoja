@@ -38,6 +38,7 @@ export default class App extends Component {
   }
 
   registerUser(user) {
+    console.log('user registerUser', user)
     this.setState({
       user
     })
@@ -65,7 +66,6 @@ export default class App extends Component {
     console.log('this.state App', this.state)
     const {user} = this.state
 
-        // <Navbar signOut={this.signOutUser} user={this.state.user} />
     return <Router history={createBrowserHistory()}>
         <Switch>
           <Route exact path='/' component={
@@ -76,7 +76,9 @@ export default class App extends Component {
             e => <VendorMap user={user} signOut={this.signOutUser} />
           } />
           <Route path='/admin' component={
-            e => <AdminPage user={user} signOut={this.signOutUser} />
+            e => user
+              ? <AdminPage user={user} signOut={this.signOutUser} />
+              : <AccessNotGranted />
           } />
           <Route path='/*' component={
             e => <NotFoundPage user={user} signOut={this.signOutUser} />
@@ -84,6 +86,10 @@ export default class App extends Component {
         </Switch>
     </Router>
   }
+}
+
+const AccessNotGranted = props => {
+  return <h1>Permission Denied</h1>
 }
 
 const NotFoundPage = props => {

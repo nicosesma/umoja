@@ -46,7 +46,7 @@ router.post('/', (request, response) => {
 
 router.post('/login', (request, response) => {
   console.log('In the login route API', request.body)
-  return queries.verifyUserLogin(request.body)
+  return commands.verifyUserLogin(request.body)
     .then(result => {
       if (result) {
         request.session.user = result
@@ -65,29 +65,41 @@ router.post('/create_user', (request, response) => {
 
   if (invite_code === access_invite_one) {
     return createNewUser(new_user_attributes)
-      .then(user => response.json(user))
+      .then(user => {
+        request.session.user = user
+        response.json(user)
+      })
   }
   if (invite_code === access_invite_two) {
     Object.assign(new_user_attributes, {two_spots: true})
     return createNewUser(new_user_attributes)
-      .then(user => response.json(user))
+      .then(user => {
+        request.session.user = user
+        response.json(user)
+      })
   }
   if (invite_code === admin_invite) {
     Object.assign(new_user_attributes, {admin: true})
     return createNewUser(new_user_attributes)
-      .then(user => response.json(user))
+      .then(user => {
+        request.session.user = user
+        response.json(user)
+      })
   }
   if (invite_code === 'test') {
     return createNewUser(new_user_attributes)
-      .then(user => response.json(user))
+      .then(user => {
+        request.session.user = user
+        response.json(user)
+      })
   }
 
-  response.json('Invalid Invite Code')
+  response.json(null)
 })
 
 router.post('/signout', (request, response) => {
   delete request.session.user
-  response.json('Logged Out Successfully')
+  response.json(null)
 })
 
 const createNewUser = attributes => {
@@ -97,7 +109,8 @@ const createNewUser = attributes => {
         return commands.createUser(attributes)
           .then(user => user)
       }
-      return 'User with this email already exists'
+
+      return null
     })
 }
 

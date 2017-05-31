@@ -40,6 +40,21 @@ const createUser = attributes => {
     })
 }
 
+const verifyUserLogin = attributes => {
+  console.log('attributes verifyUser DB', attributes)
+  return queries.getUserByEmail(attributes.email)
+    .then(user => {
+      if (user) {
+        return bcrypt.compare(attributes.password, user.password)
+          .then(result => {
+            return result ? user : null
+          })
+      }
+
+      return null
+    })
+}
+
 const updateUser = (id, attributes) => updateRecord('users', id, attributes)
 
 const deleteUser = id => deleteRecord('users', id)
@@ -57,5 +72,6 @@ export default {
   createUser,
   updateUser,
   deleteUser,
-  manageBoothReservation
+  manageBoothReservation,
+  verifyUserLogin
 }

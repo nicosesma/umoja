@@ -16,11 +16,17 @@ class NavBar extends Component {
   constructor() {
     super()
     this.redirectToAdminDashboard = this.redirectToAdminDashboard.bind(this)
+    this.redirectToMap = this.redirectToMap.bind(this)
   }
 
   redirectToAdminDashboard(event) {
     event.preventDefault()
     window.location = '/admin'
+  }
+
+  redirectToMap(event) {
+    event.preventDefault()
+    window.location = '/map'
   }
 
   render() {
@@ -30,6 +36,11 @@ class NavBar extends Component {
     return <div className='navbar navbar-inverse'>
       <ul style={NavBarStyle} className='pull-right'>
         <li onClick={e => window.location = '/'}>Home</li>
+        {
+          this.props.user
+            ? <li key={1} style={{marginLeft: '1em'}} onClick={e => this.redirectToMap(e)}>Map</li>
+            : null
+        }
         {
           this.props.user
             ? this.props.user.admin

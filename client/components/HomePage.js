@@ -26,7 +26,7 @@ class HomePage extends Component {
       {
         !this.props.user
           ? <AuthForm registerUser={this.props.registerUser} />
-          : <button className='btn btn-success btn-lg' onClick={e => window.location = '/map'}>Go to Map</button>
+          : <button style={HeaderStyle} className='btn btn-success btn-lg' onClick={e => window.location = '/map'}>Go to Map</button>
       }
       </div>
     </div>

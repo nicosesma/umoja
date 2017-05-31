@@ -47,7 +47,7 @@ class AuthForm extends Component {
           return window.location = '/map'
         }
         this.setState({
-          error: true
+          error: 'Invalid Login'
         })
       })
     } else if (!user_login) {
@@ -67,17 +67,32 @@ class AuthForm extends Component {
           data: JSON.stringify({new_user_attributes, invite_code})
         }).then(result => {
           console.log('result Signup API', result)
-          this.props.registerUser(result)
-          return window.location = '/map'
+          if (result) {
+            this.props.registerUser(result)
+            return window.location = '/map'
+          }
+          this.setState({
+            error: 'Invalid Form Submission'
+          })
+        })
+      } else if (password !== confirm_password) {
+        this.setState({
+          error: 'Passwords do not match'
+        })
+      } else {
+        this.setState({
+          error: 'Invalid Form Submission'
         })
       }
+
     }
   }
 
   switchFormOptions(event) {
     event.preventDefault()
     this.setState({
-      user_login: !this.state.user_login
+      user_login: !this.state.user_login,
+      error: null
     })
   }
 
@@ -122,7 +137,7 @@ class AuthForm extends Component {
         <RegistrationForm user_login={this.state.user_login} updateInput={this.updateInput} attributes={this.state} onSubmit={this.onFormSubmit} />
         {
           this.state.error
-            ? <h1>Error with Form Submission</h1>
+            ? <h1>{this.state.error}</h1>
             : null
         }
       </div>
