@@ -35,9 +35,9 @@ const verifyUserLogin = attributes => {
     })
 }
 
-const getAllBooths = () => getRecords('vendor_spots').orderBy('id', 'asc')
+const getAllBooths = () => getRecords('vendor_booths').orderBy('id', 'asc')
 
-const getBoothById = id => getRecordById('vendor_spots', id)
+const getBoothById = id => getRecordById('vendor_booths', id)
 
 export default {
   getAllUsers,

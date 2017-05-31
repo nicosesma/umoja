@@ -50,7 +50,7 @@ const manageBoothReservation = (id, attributes) => {
     {updated_at: knex.fn.now()}
   )
 
-  return updateRecord('vendor_spots', id, attributes)
+  return updateRecord('vendor_booths', id, attributes)
 }
 
 export default {

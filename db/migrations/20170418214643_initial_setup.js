@@ -8,10 +8,11 @@ exports.up = function(knex, Promise) {
       table.string('password').notNullable()
       table.boolean('admin').defaultTo('false')
       table.boolean('two_spots').defaultTo('false')
+      table.boolean('can_reserve').defaultTo('true')
       table.timestamp('created_at').defaultTo(knex.fn.now())
       table.timestamp('updated_at').defaultTo(knex.fn.now())
     }),
-    knex.schema.createTable('vendor_spots', table => {
+    knex.schema.createTable('vendor_booths', table => {
       table.increments('id').primary()
       table.boolean('reserved').defaultTo('false')
       table.integer('user_id')
@@ -24,6 +25,6 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('users'),
-    knex.schema.dropTable('vendor_spots')
+    knex.schema.dropTable('vendor_booths')
   ])
 };
