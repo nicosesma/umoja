@@ -39,6 +39,7 @@ class VendorSpot extends Component {
           })
         }).then(cancel_result => {
           console.log('cancel_result', cancel_result)
+          this.props.userReservationUpdate()
           this.setState({
             reserved: !this.state.reserved,
             user_reservation: !this.state.user_reservation,
@@ -70,17 +71,19 @@ class VendorSpot extends Component {
         })
       }).then(result => {
         console.log('result', result)
-        this.setState({
-          reserved: !this.state.reserved,
-          reservation_user_id: result.user_id,
-          user_can_reserve: !this.state.user_can_reserve
-        })
+        if (result) {
+          this.props.userReservationUpdate()
+          this.setState({
+            reserved: !this.state.reserved,
+            reservation_user_id: result.user_id,
+            user_can_reserve: !this.state.user_can_reserve
+          })
+        }
       })
     }
   }
 
   render() {
-    // console.log('this.state VendorSpot', this.state, this.props)
     if (this.state.user_reservation) {
       return <div className={`VendorSpot userSpot`} onClick={e => this.clickOnSpot(e)}>
     </div>

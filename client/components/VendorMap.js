@@ -11,7 +11,8 @@ class VendorMap extends Component {
   constructor() {
     super()
     this.state = {
-      vendor_map: null
+      vendor_map: null,
+      user_can_reserve: null,
     }
   }
 
@@ -22,10 +23,10 @@ class VendorMap extends Component {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
     }).then(map => {
-      // console.log('map VendorMap DidMount', map)
       if (this.refs.map_reference) {
         this.setState({
-          vendor_map: map
+          vendor_map: map.vendorMap,
+          user_can_reserve: map.user_can_reserve
         })
       }
     })
@@ -49,35 +50,35 @@ class VendorMap extends Component {
       <br />
       <div ref='map_reference' className='container col-sm-6 col-sm-offset-3'>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 0, 11, this.props.user)}
+          {renderMapLine(vendor_map, 0, 11, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <br />
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 11, 22, this.props.user)}
+          {renderMapLine(vendor_map, 11, 22, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 22, 33, this.props.user)}
+          {renderMapLine(vendor_map, 22, 33, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <br />
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 33, 44, this.props.user)}
+          {renderMapLine(vendor_map, 33, 44, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 44, 55, this.props.user)}
+          {renderMapLine(vendor_map, 44, 55, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
       </div>
     </div>
   }
 }
 
-const renderMapLine = (vendor_map, start, end, user) => {
+const renderMapLine = (vendor_map, start, end, user, user_can_reserve, two_booths, userReservationUpdate) => {
   const mapArray = []
   if (vendor_map) {
     for (let i = start; i < end; i++) {
       if (vendor_map[i].user_id === user.id) {
-        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_reservation={true} user_can_reserve={user ? user.can_reserve : null} />)
+        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_reservation={true} user_can_reserve={user ? user_can_reserve : null} two_booths={two_booths} userReservationUpdate={userReservationUpdate} />)
       } else if (vendor_map[i].user_id !== user.id) {
-        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_id={vendor_map[i].user_id} current_user_id={user.id} user_can_reserve={user ? user.can_reserve : null} />)
+        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_id={vendor_map[i].user_id} current_user_id={user.id} user_can_reserve={user ? user_can_reserve : null} two_booths={two_booths} userReservationUpdate={userReservationUpdate} />)
       }
     }
   }

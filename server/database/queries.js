@@ -28,7 +28,7 @@ const getBoothsByUserId = user_id => {
   return knex
     .table('vendor_booths')
     .where({user_id})
-    .first('*')
+    .select('*')
 }
 
 export default {

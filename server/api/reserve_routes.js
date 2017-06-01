@@ -10,46 +10,43 @@ router.post('/', (request, response) => {
   const {user} = request.session
   if (user) {
     const {id} = user
-    // console.log('user reserveRoute', user, id)
-    // const reservation_attributes = Object.assign({}, request.body, {user_id: id})
-    // console.log('reservation_attributes', reservation_attributes)
-    // return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes).then(reservedSpot => {
-    //   console.log('reservedSpot', reservedSpot)
-    //   response.json(reservedSpot)
-    // })
+
     const reservation_attributes = Object.assign({}, request.body, {user_id: id})
-    return queries.getUserById(id).then(user => {
-         // console.log('user', user)
-      if (!user.can_reserve) {
-        return response.json(null)
-      }
-      if (user.two_spots) {
-        return queries.getBoothsByUserId(user.id)
-          .then(booths => {
-            console.log('booths 000', booths)
-            if (!booths) {
-              console.log('No booths')
-              return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
-                .then(reservation => response.json(reservation))
-            } else {
-              return commands.updateUser(user.id, {can_reserve: false}).then(_ => {
+
+    return queries.getUserById(id)
+      .then(user => {
+
+        if (!user.can_reserve) {
+          return response.json(null)
+        }
+
+        if (user.two_spots) {
+          return queries.getBoothsByUserId(user.id)
+            .then(booths => {
+              console.log('booths 000', booths)
+              if (!booths) {
                 return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
                   .then(reservation => response.json(reservation))
-              })
-            }
-          })
-      }
-      if (user.can_reserve && !user.two_spots) {
-        return commands.updateUser(user.id, {can_reserve: false}).then(_ => {
-          return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
-            .then(reservation => response.json(reservation))
-        })
-      }
-    })
+              } else {
+                return commands.updateUser(user.id, {can_reserve: false})
+                  .then(_ => {
+                    return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
+                      .then(reservation => response.json(reservation))
+                  })
+              }
+            })
+        }
+
+        if (user.can_reserve && !user.two_spots) {
+          return commands.updateUser(user.id, {can_reserve: false})
+            .then(_ => {
+              return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
+                .then(reservation => response.json(reservation))
+            })
+        }
+      })
   }
-  // else {
-  //   response.json(null)
-  // }
+
   response.json(null)
 })
 
@@ -60,9 +57,9 @@ router.post('/cancel', (request, response) => {
     .then(result => {
       console.log('result cancel Query', result, request.session.user.id)
       const {user} = request.session
+
       if (result.user_id === user.id && !request.body.reserved && result.reserved) {
         return commands.updateUser(user.id, {can_reserve: true}).then(_ => {
-          console.log('After update user')
           const cancellation_attributes = Object.assign({}, request.body, {user_id: null})
 
           return commands.manageBoothReservation(JSON.parse(request.body.id), cancellation_attributes)

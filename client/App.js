@@ -16,11 +16,14 @@ export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      user: null
+      user: null,
+      user_can_reserve: null,
+      two_booths: null
     }
 
     this.registerUser = this.registerUser.bind(this)
     this.signOutUser = this.signOutUser.bind(this)
+    this.userReservationUpdate = this.userReservationUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -31,16 +34,28 @@ export default class App extends Component {
       dataType: 'json'
     }).then(user_session => {
       console.log('DidMount user_session', user_session)
-      this.setState({
-        user: user_session
-      })
+      if (user_session) {
+        this.setState({
+          user: user_session.user_attributes,
+          user_can_reserve: user_session.user_can_reserve,
+          two_booths: user_session.two_booths
+        })
+      }
     })
   }
 
-  registerUser(user) {
-    console.log('user registerUser', user)
+  registerUser(response) {
+    console.log('response registerresponse', response)
     this.setState({
-      user
+      user: response.user_attributes,
+      user_can_reserve: response.user_can_reserve,
+      two_booths: response.two_booths
+    })
+  }
+
+  userReservationUpdate() {
+    this.setState({
+      user_can_reserve: !this.state.user_can_reserve
     })
   }
 
@@ -73,7 +88,10 @@ export default class App extends Component {
               registerUser={this.registerUser} signOut={this.signOutUser} />
           } />
           <Route path='/map' component={
-            e => <VendorMap user={user} signOut={this.signOutUser} />
+            e => <VendorMap user={user} signOut={this.signOutUser}
+              user_can_reserve={this.state.user_can_reserve}
+              two_booths={this.state.two_booths}
+              userReservationUpdate={this.userReservationUpdate} />
           } />
           <Route path='/admin' component={
             e => user

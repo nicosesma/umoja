@@ -10,32 +10,31 @@ router.post('/', (request, response) => {
   const {user} = request.session
 
   if (user) {
-    // const attributes = Object.assign({}, {
-    //   id: user.id,
-    //   name: user.name,
-    //   email: user.email,
-    //   admin: user.admin,
-    //   two_spots: user.two_spots,
-    //   organization: user.organization
-    // })
-    // response.json(attributes)
     const session_user_id = user.id
+
     return queries.getUserByEmail(user.email)
       .then(verified_user => {
-        const attributes = Object.assign({}, {
+        const user_attributes = Object.assign({}, {
           id: verified_user.id,
           name: verified_user.name,
           email: verified_user.email,
           admin: verified_user.admin,
-          two_spots: verified_user.two_spots,
           organization: verified_user.organization,
-          can_reserve: verified_user.can_reserve
         })
+
+        const user_can_reserve = verified_user.can_reserve
+
+        const two_booths = verified_user.two_spots
+
         console.log('verified_user /auth_routes', verified_user)
 
         if (user.id === verified_user.id) {
           console.log('verified_user', verified_user)
-          response.json(attributes)
+          response.json({
+            user_attributes,
+            user_can_reserve,
+            two_booths
+          })
         } else {
           response.json(null)
         }
@@ -54,7 +53,22 @@ router.post('/login', (request, response) => {
       if (result) {
         request.session.user = result
         console.log('result LoginAPIRoute query', result)
-        response.json(result)
+        const user_attributes = Object.assign({}, {
+          id: result.id,
+          name: result.name,
+          email: result.email,
+          admin: result.admin,
+          organization: result.organization,
+        })
+        const user_can_reserve = result.can_reserve
+
+        const two_booths = result.two_spots
+
+        response.json({
+          user_attributes,
+          user_can_reserve,
+          two_booths
+        })
       } else {
         console.log('result negativeLogin API', result)
         response.json(null)
