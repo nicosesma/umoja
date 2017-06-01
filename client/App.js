@@ -78,7 +78,7 @@ export default class App extends Component {
           <Route path='/admin' component={
             e => user
               ? <AdminPage user={user} signOut={this.signOutUser} />
-              : <AccessNotGranted />
+              : <AccessNotGranted user={user} signOut={this.signOutUser} />
           } />
           <Route path='/*' component={
             e => <NotFoundPage user={user} signOut={this.signOutUser} />
@@ -89,13 +89,15 @@ export default class App extends Component {
 }
 
 const AccessNotGranted = props => {
-  return <h1>Permission Denied</h1>
+  return <div>
+    <Navbar signOut={props.signOut} user={props.user} />
+    <h1>Permission Denied</h1>
+  </div>
 }
 
 const NotFoundPage = props => {
-
   return <div>
-    <Navbar signOut={props.signOutUser} user={props.user} />
+    <Navbar signOut={props.signOut} user={props.user} />
     <h1 className='NotFoundPage'>404 Error</h1>
     <h2 className='NotFoundPage'>Page Not Found</h2>
   </div>

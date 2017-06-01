@@ -28,8 +28,11 @@ router.post('/', (request, response) => {
           email: verified_user.email,
           admin: verified_user.admin,
           two_spots: verified_user.two_spots,
-          organization: verified_user.organization
+          organization: verified_user.organization,
+          can_reserve: verified_user.can_reserve
         })
+        console.log('verified_user /auth_routes', verified_user)
+
         if (user.id === verified_user.id) {
           console.log('verified_user', verified_user)
           response.json(attributes)

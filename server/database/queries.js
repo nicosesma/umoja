@@ -18,13 +18,24 @@ const getUserByEmail = email => {
     .first('*')
 }
 
+const getUserById = id => getRecordById('users', id)
+
 const getAllBooths = () => getRecords('vendor_booths').orderBy('id', 'asc')
 
 const getBoothById = id => getRecordById('vendor_booths', id)
+
+const getBoothsByUserId = user_id => {
+  return knex
+    .table('vendor_booths')
+    .where({user_id})
+    .first('*')
+}
 
 export default {
   getAllUsers,
   getAllBooths,
   getBoothById,
-  getUserByEmail
+  getUserByEmail,
+  getUserById,
+  getBoothsByUserId
 }

@@ -30,7 +30,7 @@ class NavBar extends Component {
   }
 
   render() {
-    console.log('this.props NavBar', this.props)
+    // console.log('this.props NavBar', this.props)
     // <ul style={NavBarStyle} className='pull-right'>
 
     return <div className='navbar navbar-inverse'>

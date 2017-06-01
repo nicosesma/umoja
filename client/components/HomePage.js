@@ -17,7 +17,7 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log('this.props HomePage', this.props)
+    // console.log('this.props HomePage', this.props)
 
     return <div>
       <Navbar signOut={this.props.signOut} user={this.props.user} />
