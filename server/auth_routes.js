@@ -87,6 +87,7 @@ router.post('/create_user', (request, response) => {
         response.json(user)
       })
   }
+
   if (invite_code === access_invite_two) {
     Object.assign(new_user_attributes, {two_spots: true})
     return createNewUser(new_user_attributes)
@@ -95,6 +96,7 @@ router.post('/create_user', (request, response) => {
         response.json(user)
       })
   }
+
   if (invite_code === admin_invite) {
     Object.assign(new_user_attributes, {admin: true})
     return createNewUser(new_user_attributes)
@@ -103,6 +105,7 @@ router.post('/create_user', (request, response) => {
         response.json(user)
       })
   }
+
   if (invite_code === 'test') {
     return createNewUser(new_user_attributes)
       .then(user => {
