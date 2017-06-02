@@ -17,12 +17,14 @@ class VendorMap extends Component {
   }
 
   componentDidMount() {
+    console.log('about to mount vendorMap')
     return $.ajax({
       method: 'POST',
       url: '/api/map',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
     }).then(map => {
+      console.log('map result /map', map)
       if (this.refs.map_reference) {
         this.setState({
           vendor_map: map.vendorMap,
@@ -50,21 +52,21 @@ class VendorMap extends Component {
       <br />
       <div ref='map_reference' className='container col-sm-6 col-sm-offset-3'>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 0, 11, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+          {renderMapLine(vendor_map, 0, 11, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <br />
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 11, 22, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+          {renderMapLine(vendor_map, 11, 22, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 22, 33, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+          {renderMapLine(vendor_map, 22, 33, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <br />
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 33, 44, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+          {renderMapLine(vendor_map, 33, 44, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
         <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 44, 55, this.props.user, this.props.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+          {renderMapLine(vendor_map, 44, 55, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
         </div>
       </div>
     </div>

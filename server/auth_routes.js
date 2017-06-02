@@ -36,6 +36,7 @@ router.post('/', (request, response) => {
             two_booths
           })
         } else {
+          console.log('I it heree@@@@')
           response.json(null)
         }
       })

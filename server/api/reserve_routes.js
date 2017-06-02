@@ -7,16 +7,18 @@ const router = new express.Router()
 router.post('/', (request, response) => {
   console.log('request.body /reserve', request.body)
   console.log('request.session.user', request.session.user)
-  const {user} = request.session
-  if (user) {
-    const {id} = user
+  // const {user} = request.session
+  if (request.session.user) {
+    const {id} = request.session.user
 
     const reservation_attributes = Object.assign({}, request.body, {user_id: id})
 
     return queries.getUserById(id)
       .then(user => {
+        console.log('user db /reserve', user)
 
         if (!user.can_reserve) {
+          console.log('In the null route for /reserve')
           return response.json(null)
         }
 
@@ -24,10 +26,11 @@ router.post('/', (request, response) => {
           return queries.getBoothsByUserId(user.id)
             .then(booths => {
               console.log('booths 000', booths)
-              if (!booths) {
+              if (booths.length === 0) {
                 return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
                   .then(reservation => response.json(reservation))
               } else {
+                console.log('made it into second statement')
                 return commands.updateUser(user.id, {can_reserve: false})
                   .then(_ => {
                     return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
@@ -46,7 +49,7 @@ router.post('/', (request, response) => {
         }
       })
   }
-
+  // console.log('NUlling it in /map')
   response.json(null)
 })
 

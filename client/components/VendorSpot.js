@@ -39,7 +39,7 @@ class VendorSpot extends Component {
           })
         }).then(cancel_result => {
           console.log('cancel_result', cancel_result)
-          this.props.userReservationUpdate()
+          // this.props.userReservationUpdate()
           this.setState({
             reserved: !this.state.reserved,
             user_reservation: !this.state.user_reservation,
@@ -66,13 +66,12 @@ class VendorSpot extends Component {
         dataType: 'json',
         data: JSON.stringify({
           id: spot_id,
-          // user_id,
           reserved: true
         })
       }).then(result => {
         console.log('result', result)
         if (result) {
-          this.props.userReservationUpdate()
+          // this.props.userReservationUpdate()
           this.setState({
             reserved: !this.state.reserved,
             reservation_user_id: result.user_id,
