@@ -28,13 +28,13 @@ router.post('/', (request, response) => {
               console.log('booths 000', booths)
               if (booths.length === 0) {
                 return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
-                  .then(reservation => response.json(reservation))
+                  .then(reservation => response.json({reservation, user_id: user.id, user_can_reserve: true}))
               } else {
                 console.log('made it into second statement')
                 return commands.updateUser(user.id, {can_reserve: false})
                   .then(_ => {
                     return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
-                      .then(reservation => response.json(reservation))
+                      .then(reservation => response.json({reservation, user_id: user.id, user_can_reserve: false}))
                   })
               }
             })
@@ -44,7 +44,7 @@ router.post('/', (request, response) => {
           return commands.updateUser(user.id, {can_reserve: false})
             .then(_ => {
               return commands.manageBoothReservation(JSON.parse(request.body.id), reservation_attributes)
-                .then(reservation => response.json(reservation))
+                .then(reservation => response.json({reservation, user_id: user.id, user_can_reserve: false}))
             })
         }
       })
@@ -68,7 +68,7 @@ router.post('/cancel', (request, response) => {
           return commands.manageBoothReservation(JSON.parse(request.body.id), cancellation_attributes)
             .then(canceled_reservation => {
               console.log('canceled_reservation', canceled_reservation)
-              response.json(canceled_reservation)
+              response.json({canceled_reservation, user_can_reserve: true})
             })
         })
       }

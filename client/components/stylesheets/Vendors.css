@@ -14,14 +14,38 @@
 }
 
 .reservedSpot {
-  background-color: lightgrey;
+  background-color: grey;
 }
 
 .userSpot {
-  background-color: grey;
+  background-color: lightblue;
 }
 
 .VendorMapRow {
   display: flex;
   flex-direction: row;
+}
+
+.VendorMapPage {
+  display: flex;
+  flex-direction: row;
+}
+
+.twelve_street {
+  border-right: 5px solid black;
+  padding: 0 1em;
+  margin: 0 1em;
+}
+
+.fourteen_street {
+  border-left: 5px solid black;
+  padding: 0 1em;
+  margin: 0 1em;
+}
+
+.soccer_field {
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  margin: 1em 8em;
 }

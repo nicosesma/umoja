@@ -19,12 +19,20 @@ class VendorSpot extends Component {
     this.clickOnSpot = this.clickOnSpot.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.user_can_reserve !== nextProps.user_can_reserve) {
+      this.setState({
+        user_can_reserve: nextProps.user_can_reserve
+      })
+    }
+  }
+
   clickOnSpot(event) {
     event.preventDefault()
     const {reserved, reservation_user_id} = this.state
     const {spot_id, user_id, current_user_id} = this.props
     console.log('id clickOnSpot', spot_id)
-
+    console.log('this.state, this.props clickOnSpot', this.state, this.props)
     if (reserved) {
       if (reservation_user_id === current_user_id){
         console.log('Success user_ids match!!')
@@ -39,18 +47,18 @@ class VendorSpot extends Component {
           })
         }).then(cancel_result => {
           console.log('cancel_result', cancel_result)
-          // this.props.userReservationUpdate()
+          this.props.userReservationUpdate(cancel_result.user_can_reserve)
           this.setState({
             reserved: !this.state.reserved,
             user_reservation: !this.state.user_reservation,
-            user_can_reserve: !this.state.user_can_reserve
+            // user_can_reserve: !this.state.user_can_reserve
           })
         })
       }
     }
 
     if (!reserved) {
-
+      console.log('this.state.user_can_reserve', this.state.user_can_reserve)
       if (!this.state.user_can_reserve) {
         return null
       }
@@ -71,11 +79,11 @@ class VendorSpot extends Component {
       }).then(result => {
         console.log('result', result)
         if (result) {
-          // this.props.userReservationUpdate()
+          this.props.userReservationUpdate(result.user_can_reserve)
           this.setState({
             reserved: !this.state.reserved,
             reservation_user_id: result.user_id,
-            user_can_reserve: !this.state.user_can_reserve
+            // user_can_reserve: !this.state.user_can_reserve
           })
         }
       })
@@ -83,6 +91,7 @@ class VendorSpot extends Component {
   }
 
   render() {
+    // console.log('this.props VendorSpot', this.props, this.state)
     if (this.state.user_reservation) {
       return <div className={`VendorSpot userSpot`} onClick={e => this.clickOnSpot(e)}>
     </div>

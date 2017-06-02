@@ -14,10 +14,11 @@ class VendorMap extends Component {
       vendor_map: null,
       user_can_reserve: null,
     }
+
+    this.updateUserReservationState = this.updateUserReservationState.bind(this)
   }
 
   componentDidMount() {
-    console.log('about to mount vendorMap')
     return $.ajax({
       method: 'POST',
       url: '/api/map',
@@ -34,8 +35,15 @@ class VendorMap extends Component {
     })
   }
 
+  updateUserReservationState(result) {
+    console.log('updateUserReservationState')
+    this.setState({
+      user_can_reserve: result
+    })
+  }
+
   render() {
-    console.log('this.props VendorMap Component', this.props)
+    // console.log('this.props VendorMap Component', this.props)
     console.log('this.state VendorMap', this.state)
 
     const {vendor_map} = this.state
@@ -50,37 +58,54 @@ class VendorMap extends Component {
     return <div>
       <Navbar signOut={this.props.signOut} user={this.props.user} />
       <br />
-      <div ref='map_reference' className='container col-sm-6 col-sm-offset-3'>
-        <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 0, 11, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+      <div className='soccer_field'>
+        Soccer Field
+      </div>
+      <div className='VendorMapPage'>
+        <div className='twelve_street'>
+          12th Street
         </div>
-        <br />
-        <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 11, 22, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+        <div ref='map_reference' className='container col-sm-6 col-sm-offset-3'>
+          <div className='VendorMapRow'>
+            {renderMapLine(vendor_map, 0, 11, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.updateUserReservationState)}
+          </div>
+          <br />
+          <div className='VendorMapRow'>
+            {renderMapLine(vendor_map, 11, 22, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.updateUserReservationState)}
+          </div>
+          <div className='VendorMapRow'>
+            {renderMapLine(vendor_map, 22, 33, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.updateUserReservationState)}
+          </div>
+          <br />
+          <div className='VendorMapRow'>
+            {renderMapLine(vendor_map, 33, 44, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.updateUserReservationState)}
+          </div>
+          <div className='VendorMapRow'>
+            {renderMapLine(vendor_map, 44, 55, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.updateUserReservationState)}
+          </div>
         </div>
-        <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 22, 33, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
+        <div className='fourteen_street'>
+          14th Street
         </div>
-        <br />
-        <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 33, 44, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
-        </div>
-        <div className='VendorMapRow'>
-          {renderMapLine(vendor_map, 44, 55, this.props.user, this.state.user_can_reserve, this.props.two_booths, this.props.userReservationUpdate)}
-        </div>
+      </div>
+      <div className='festival_area soccer_field'>
+        Umoja Festival
+      </div>
+      <div className='stage_area'>
       </div>
     </div>
   }
 }
 
 const renderMapLine = (vendor_map, start, end, user, user_can_reserve, two_booths, userReservationUpdate) => {
+  console.log('user_can_reserve renderMapLine', user_can_reserve)
   const mapArray = []
   if (vendor_map) {
     for (let i = start; i < end; i++) {
       if (vendor_map[i].user_id === user.id) {
-        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_reservation={true} user_can_reserve={user ? user_can_reserve : null} two_booths={two_booths} userReservationUpdate={userReservationUpdate} />)
+        mapArray.push(<VendorSpot key={i} spot_id={vendor_map[i].id} reserved={vendor_map[i].reserved} user_reservation={true} user_can_reserve={user ? user_can_reserve : null} two_booths={two_booths} userReservationUpdate={userReservationUpdate} />)
       } else if (vendor_map[i].user_id !== user.id) {
-        mapArray.push(<VendorSpot key={i} spot_id={i+1} reserved={vendor_map[i].reserved} user_id={vendor_map[i].user_id} current_user_id={user.id} user_can_reserve={user ? user_can_reserve : null} two_booths={two_booths} userReservationUpdate={userReservationUpdate} />)
+        mapArray.push(<VendorSpot key={i} spot_id={vendor_map[i].id} reserved={vendor_map[i].reserved} user_reservation={false} user_id={vendor_map[i].user_id} current_user_id={user.id} user_can_reserve={user ? user_can_reserve : null} two_booths={two_booths} userReservationUpdate={userReservationUpdate} />)
       }
     }
   }
