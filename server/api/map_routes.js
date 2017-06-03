@@ -33,4 +33,18 @@ router.post('/', (request, response) => {
   }
 })
 
+router.post('/user_reservations', (request, response) => {
+  console.log('In the /user_reservations route')
+  const {user} = request.session
+  if (user) {
+    return queries.getBoothsByUserId(user.id)
+      .then(booths => {
+        console.log('booths HomePAge API route', booths)
+        response.json(booths)
+      })
+  } else {
+    response.json(null)
+  }
+})
+
 export default router

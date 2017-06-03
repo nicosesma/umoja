@@ -13,6 +13,7 @@ class VendorMap extends Component {
     this.state = {
       vendor_map: null,
       user_can_reserve: null,
+      confirmation_prompt: null
     }
 
     this.updateUserReservationState = this.updateUserReservationState.bind(this)
@@ -93,6 +94,11 @@ class VendorMap extends Component {
       </div>
       <div className='stage_area'>
       </div>
+      {
+        this.state.confirmation_prompt
+          ? <div>Confirmation Prompt</div>
+          : null
+      }
     </div>
   }
 }
